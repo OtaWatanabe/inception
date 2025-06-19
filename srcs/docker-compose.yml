@@ -8,11 +8,6 @@ services:
         target: /home/owatanab/data
     env_file:
       - .env
-    # environment:
-    #   - MYSQL_ROOT_PASSWORD=rootpassword
-    #   - MYSQL_DATABASE=wordpress
-    #   - MYSQL_USER=wordpress
-    #   - MYSQL_PASSWORD=supersecretpassword
     networks:
       - db-network
     restart: on-failure
@@ -23,8 +18,8 @@ services:
     volumes:
       - type: volume
         source: wordpress-volume
-        target: /var/www/html
-        # read_only: true
+        target: /home/owatanab/data
+        read_only: true
     networks:
       - wp-network
     ports:
@@ -39,7 +34,7 @@ services:
     volumes:
       - type: volume
         source: wordpress-volume
-        target: /var/www/html
+        target: /home/owatanab/data
     networks:
       - wp-network
       - db-network
@@ -47,37 +42,7 @@ services:
       - mariadb
     env_file:
       - .env
-    # environment:
-    #   # データベース接続情報 (wp-config.php およびエントリーポイントスクリプトで使用)
-    #   - WORDPRESS_DB_HOST=mariadb
-    #   - WORDPRESS_DB_USER=wordpress
-    #   - WORDPRESS_DB_PASSWORD=supersecretpassword # MariaDBのinit.sqlと一致させる
-    #   - WORDPRESS_DB_NAME=wordpress
-
-    #   # WordPressサイト情報 (エントリーポイントスクリプトで使用)
-    #   - WORDPRESS_DEBUG=true # 本番ではfalse、開発中はtrue
-    #   - WORDPRESS_SITE_URL=https://owatanab.42.fr
-    #   - WORDPRESS_SITE_TITLE=Hello World!
-    #   - WORDPRESS_ADMIN_USER=wordpress
-    #   - WORDPRESS_ADMIN_PASSWORD=pass
-    #   - WORDPRESS_ADMIN_EMAIL=admin@admin.com
-    #   - ADDITIONAL_USER_LOGIN=editor
-    #   - ADDITIONAL_USER_EMAIL=editor@editor.com
-    #   - ADDITIONAL_USER_ROLE=editor
-    #   - ADDITIONAL_USER_PASSWORD=Editorpass
     restart: on-failure
-    
-
-      # 認証用ソルトキー (wp-config.phpで使用、設定推奨)
-      # https://api.wordpress.org/secret-key/1.1/salt/ で生成したものを設定
-      # - WORDPRESS_AUTH_KEY=...
-      # - WORDPRESS_SECURE_AUTH_KEY=...
-      # - WORDPRESS_LOGGED_IN_KEY=...
-      # - WORDPRESS_NONCE_KEY=...
-      # - WORDPRESS_AUTH_SALT=...
-      # - WORDPRESS_SECURE_AUTH_SALT=...
-      # - WORDPRESS_LOGGED_IN_SALT=...
-      # - WORDPRESS_NONCE_SALT=...
 
 volumes:
   db-volume:

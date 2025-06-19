@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ ! -f /var/www/html/wp-config.php ]; then
-    cat << EOF > /var/www/html/wp-config.php
+if [ ! -f /home/owatanab/data/wp-config.php ]; then
+    cat << EOF > /home/owatanab/data/wp-config.php
 <?php
 define('DB_NAME', '${WORDPRESS_DB_NAME}');
 define('DB_USER', '${WORDPRESS_DB_USER}');
@@ -17,7 +17,7 @@ EOF
 fi
 
 # WordPress のインストールが完了したかどうかの目印ファイル
-WP_INSTALLED_FLAG="/var/www/html/wp-installed.flag"
+WP_INSTALLED_FLAG="/home/owatanab/data/wp-installed.flag"
 
 # もし目印ファイルが「まだ存在しなかったら」WordPressのコアインストールを実行
 if [ ! -f "${WP_INSTALLED_FLAG}" ]; then

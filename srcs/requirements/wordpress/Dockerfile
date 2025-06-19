@@ -24,15 +24,15 @@ RUN apt-get install -y \
     php8.1-xml
 
 # Web ディレクトリを作成
-RUN mkdir -p /var/www/html
+RUN mkdir -p /home/owatanab/data
 
 # WordPress の最新版をダウンロード
 RUN curl -o /tmp/wordpress.tar.gz -SL https://wordpress.org/latest.tar.gz \
     && tar -xzf /tmp/wordpress.tar.gz -C /tmp \
-    && mv /tmp/wordpress/* /var/www/html/ \
-    && chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html \
-    && chmod -R 775 /var/www/html/wp-content \
+    && mv /tmp/wordpress/* /home/owatanab/data/ \
+    && chown -R www-data:www-data /home/owatanab/data \
+    && chmod -R 755 /home/owatanab/data \
+    && chmod -R 775 /home/owatanab/data/wp-content \
     && rm /tmp/wordpress.tar.gz
 
 # Install WP-CLI
@@ -52,7 +52,7 @@ RUN sed -i 's/listen = \/run\/php\/php8.1-fpm.sock/listen = 9000/' /etc/php/8.1/
 RUN mkdir -p /run/php && chown www-data:www-data /run/php
 
 # 作業ディレクトリを設定
-WORKDIR /var/www/html
+WORKDIR /home/owatanab/data
 
 # ポートを公開
 EXPOSE 9000
